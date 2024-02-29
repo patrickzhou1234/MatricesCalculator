@@ -8,6 +8,7 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     freopen("matrices.txt", "r", stdin);
+    freopen("calculated.txt", "w", stdout);
     int i;
     string tmp;
     vector<int> v1, v2;
@@ -81,6 +82,5 @@ int main()
         }
     }
     cout << "]\n";
-    system("pause");
     return 0;
 }
