@@ -3,84 +3,126 @@
 
 using namespace std;
 
+char operation;
+string c;
+int i, j, m, sum;
+vector<vector<int>> mat, mat2, ans;
+vector<int> row;
+
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     freopen("matrices.txt", "r", stdin);
     freopen("calculated.txt", "w", stdout);
-    int i;
-    string tmp;
-    vector<int> v1, v2;
-    char c, operation;
-    cin >> c;
-    if (c == '[')
+    getline(cin, c);
+    if (c == "[")
     {
         while (true)
         {
-            cin >> tmp;
-            if (tmp == "]")
+            getline(cin, c);
+            if (c == "]")
             {
                 break;
             }
-            if (tmp[tmp.size() - 1] == ']')
+            while (c.find(" ") != string::npos)
             {
-                tmp.pop_back();
-                v1.push_back(stoi(tmp));
-                break;
+                row.push_back(stoi(c.substr(0, c.find(" "))));
+                c = c.substr(c.find(" ") + 1);
             }
-            else
-            {
-                v1.push_back(stoi(tmp));
-            }
-        }
-        cin >> operation;
-        cin >> c;
-        if (c == '[')
-        {
-            while (true)
-            {
-                cin >> tmp;
-                if (tmp == "]")
-                {
-                    break;
-                }
-                if (tmp[tmp.size() - 1] == ']')
-                {
-                    tmp.pop_back();
-                    v2.push_back(stoi(tmp));
-                    break;
-                }
-                else
-                {
-                    v2.push_back(stoi(tmp));
-                }
-            }
+            row.push_back(stoi(c.substr(0, c.find(" "))));
+            c = c.substr(c.find(" ") + 1);
+            mat.push_back(row);
+            row.clear();
         }
     }
-    cout << "[";
+    getline(cin, c);
+    operation = c[0];
+    getline(cin, c);
+    if (c == "[")
+    {
+        while (true)
+        {
+            getline(cin, c);
+            if (c == "]")
+            {
+                break;
+            }
+            while (c.find(" ") != string::npos)
+            {
+                row.push_back(stoi(c.substr(0, c.find(" "))));
+                c = c.substr(c.find(" ") + 1);
+            }
+            row.push_back(stoi(c.substr(0, c.find(" "))));
+            c = c.substr(c.find(" ") + 1);
+            mat2.push_back(row);
+            row.clear();
+        }
+    }
     if (operation == '+')
     {
-        for (i = 0; i < v1.size(); i++)
+        if (mat.size() == mat2.size() && mat[0].size() == mat2[0].size())
         {
-            cout << v1[i] + v2[i];
-            if (i != v1.size() - 1)
+            for (i = 0; i < mat.size(); i++)
             {
-                cout << " ";
+                for (j = 0; j < mat[0].size(); j++)
+                {
+                    row.push_back(mat[i][j] + mat2[i][j]);
+                }
+                ans.push_back(row);
+                row.clear();
             }
         }
     }
-    else if (operation == '-')
+    if (operation == '-')
     {
-        for (i = 0; i < v1.size(); i++)
+        if (mat.size() == mat2.size() && mat[0].size() == mat2[0].size())
         {
-            cout << v1[i] - v2[i];
-            if (i != v1.size() - 1)
+            for (i = 0; i < mat.size(); i++)
+            {
+                for (j = 0; j < mat[0].size(); j++)
+                {
+                    row.push_back(mat[i][j] - mat2[i][j]);
+                }
+                ans.push_back(row);
+                row.clear();
+            }
+        }
+    }
+    if (operation == '*')
+    {
+        if (mat[0].size() == mat2.size())
+        {
+            for (i = 0; i < mat.size(); i++)
+            {
+                sum = 0;
+                for (j = 0; j < mat[i].size(); j++)
+                {
+                    for (m = 0; m < mat2[0].size(); m++)
+                    {
+                        sum += mat[i][j] * mat2[j][m];
+                    }
+                }
+                row.push_back(sum);
+                sum = 0;
+                ans.push_back(row);
+                row.clear();
+            }
+        }
+    }
+    cout << "[\n";
+    for (i = 0; i < ans.size(); i++)
+    {
+        for (j = 0; j < ans[i].size(); j++)
+        {
+            cout << ans[i][j];
+            if (j != ans[i].size() - 1)
             {
                 cout << " ";
             }
         }
+        cout << "\n";
     }
-    cout << "]\n";
+    cout << "]";
     return 0;
 }
