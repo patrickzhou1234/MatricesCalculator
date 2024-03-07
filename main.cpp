@@ -5,9 +5,10 @@ using namespace std;
 
 char operation;
 string c;
-int i, j, m, sum;
-vector<vector<int>> mat, mat2, ans;
-vector<int> row;
+int i, j, m;
+double sum;
+vector<vector<double>> mat, mat2, ans;
+vector<double> row;
 
 int main()
 {
@@ -27,10 +28,10 @@ int main()
             }
             while (c.find(" ") != string::npos)
             {
-                row.push_back(stoi(c.substr(0, c.find(" "))));
+                row.push_back(stod(c.substr(0, c.find(" "))));
                 c = c.substr(c.find(" ") + 1);
             }
-            row.push_back(stoi(c.substr(0, c.find(" "))));
+            row.push_back(stod(c.substr(0, c.find(" "))));
             c = c.substr(c.find(" ") + 1);
             mat.push_back(row);
             row.clear();
@@ -50,10 +51,10 @@ int main()
             }
             while (c.find(" ") != string::npos)
             {
-                row.push_back(stoi(c.substr(0, c.find(" "))));
+                row.push_back(stod(c.substr(0, c.find(" "))));
                 c = c.substr(c.find(" ") + 1);
             }
-            row.push_back(stoi(c.substr(0, c.find(" "))));
+            row.push_back(stod(c.substr(0, c.find(" "))));
             c = c.substr(c.find(" ") + 1);
             mat2.push_back(row);
             row.clear();
