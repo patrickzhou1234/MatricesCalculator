@@ -96,15 +96,15 @@ int main()
             for (i = 0; i < mat.size(); i++)
             {
                 sum = 0;
-                for (j = 0; j < mat[i].size(); j++)
+                for (j = 0; j < mat2[0].size(); j++)
                 {
-                    for (m = 0; m < mat2[0].size(); m++)
+                    for (m = 0; m < mat[0].size(); m++)
                     {
-                        sum += mat[i][j] * mat2[j][m];
+                        sum += mat[i][m] * mat2[m][j];
                     }
+                    row.push_back(sum);
+                    sum = 0;
                 }
-                row.push_back(sum);
-                sum = 0;
                 ans.push_back(row);
                 row.clear();
             }
